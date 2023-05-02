@@ -24,7 +24,12 @@ def contact_page(request):
         "form": contact_form
     }
 
-    if request.method == "POST":
-        print(request.POST)
+    if contact_form.is_valid():
+        print(contact_form.cleaned_data)
+    #if request.method == "POST":
+        #print(request.POST)
+        #print(request.POST.get('Nome_Completo'))
+        #print(request.POST.get('email'))
+        #print(request.POST.get('Mensagem'))
     
     return render(request, "contact/view.html", context)
