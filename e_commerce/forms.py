@@ -35,14 +35,14 @@ class ContactForm(forms.Form):
         return email
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label='Usuário')
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput)
 
 class RegisterForm(forms.Form):
-    username = forms.CharField()
+    username = forms.CharField(label='Usuário')
     email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput)
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -64,4 +64,6 @@ class RegisterForm(forms.Form):
         password2 = self.cleaned_data.get('password2')
         if password != password2:
             raise forms.ValidationError("As senhas informadas devem ser iguais!")
+        if len(password) < 8:
+            raise forms.ValidationError("A senha deve ter no mínimo 8 caracteres!") 
         return data
